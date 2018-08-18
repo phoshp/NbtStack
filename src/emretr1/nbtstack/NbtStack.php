@@ -50,7 +50,7 @@ class NbtStack extends PluginBase{
 	 *
 	 * @return bool
 	 */
-	public static function hasNbt(string $name) : bool{
+	public static function containsNbt(string $name) : bool{
 		return isset(self::$stackedNbts[$name]) ? true : file_exists(self::$dataPath . $name);
 	}
 
