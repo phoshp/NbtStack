@@ -44,6 +44,15 @@ class NbtStack extends PluginBase{
 		}
 		return self::$stackedNbts[$name] ?? null;
 	}
+	
+	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public static function hasNbt(string $name) : bool{
+		return isset(self::$stackedNbts[$name]) ? true : file_exists(self::$dataPath . $name);
+	}
 
 	/**
 	 * @param string $name
