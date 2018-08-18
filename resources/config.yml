@@ -1,0 +1,5 @@
+# NbtStack plugin config file
+# Plugin developer: EmreTr1
+
+# Remove not used and stacked nbt before plugin disable
+remove-not-used-nbt: false
