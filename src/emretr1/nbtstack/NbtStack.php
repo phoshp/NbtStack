@@ -43,12 +43,15 @@ class NbtStack extends PluginBase{
 	 * @return null|CompoundTag
 	 */
 	public static function getNbt(string $name, CompoundTag $nbt = null, bool $create = true) : ?CompoundTag{
-		if($create and !file_exists($file = self::$dataPath . $name)){
-    touch($file.".dat");
-			self::$stackedNbts[$name] = $nbt ?? new CompoundTag($name);
-		}elseif(!isset(self::$stackedNbts[$name]) and file_exists(self::$dataPath . $name)){
-			$stream = new BigEndianNBTStream();
-			self::$stackedNbts[$name] = $stream->readCompressed(file_get_contents(self::$dataPath . $name));
+     $path = self::$dataPath . $name;
+		if(empty(self::$stackedNbts[$name])){
+		  if($create and !file_exists($path)){
+       touch($path);
+			  self::$stackedNbts[$name] = $nbt ?? new CompoundTag($name);
+	  	}elseif(file_exists($path)){
+			  $stream = new BigEndianNBTStream();
+			  self::$stackedNbts[$name] = $stream->readCompressed(file_get_contents($path));
+		  }
 		}
 		return self::$stackedNbts[$name] ?? null;
 	}
