@@ -40,7 +40,7 @@ class NbtStack extends PluginBase{
 			if($create and !file_exists(self::$dataPath . $name)){
 				self::$stackedNbts[$name] = new CompoundTag($name);
 			}elseif(file_exists(self::$dataPath . $name)){
-				$stream = new BigEndianNBTStream();
+				$stream = new BigEndianNbtSerializer();
 				self::$stackedNbts[$name] = $stream->readCompressed(file_get_contents(self::$dataPath . $name));
 			}
 		}
