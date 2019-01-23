@@ -2,7 +2,7 @@
 
 namespace emretr1\nbtstack;
 
-use pocketmine\nbt\BigEndianNBTStream;
+use pocketmine\nbt\BigEndianNbtSerializer;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\plugin\PluginBase;
 
@@ -40,7 +40,7 @@ class NbtStack extends PluginBase{
 			if($create and !file_exists(self::$dataPath . $name)){
 				self::$stackedNbts[$name] = new CompoundTag($name);
 			}elseif(file_exists(self::$dataPath . $name)){
-				$stream = new BigEndianNBTStream();
+				$stream = new BigEndianNbtSerializer();
 				self::$stackedNbts[$name] = $stream->readCompressed(file_get_contents(self::$dataPath . $name));
 			}
 		}
@@ -71,7 +71,7 @@ class NbtStack extends PluginBase{
 	}
 
 	protected function onDisable(){
-		$stream = new BigEndianNBTStream();
+		$stream = new BigEndianNbtSerializer();
 
 		if($this->getConfig()->get("remove-not-used-nbt", false) === true){
 			foreach((new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(self::$dataPath))) as $file){
